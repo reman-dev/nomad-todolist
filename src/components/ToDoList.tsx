@@ -6,17 +6,17 @@ interface IForm {
 }
 
 function ToDoList() {
-  const [toDo, setToDo] = useRecoilState(toDoState);
+  const [toDos, setToDos] = useRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const handleValid = ({ toDo }: IForm) => {
     console.log("add:", toDo);
     setValue("toDo", "");
-    setToDo((prev) => [
+    setToDos((oldToDos) => [
       { id: Date.now(), text: toDo, category: Categories.TO_DO },
-      ...prev,
+      ...oldToDos,
     ]);
   };
-  console.log(toDo);
+  console.log(toDos);
 
   return (
     <div>
@@ -30,8 +30,10 @@ function ToDoList() {
         <button>추가</button>
       </form>
       <ul>
-        {toDo.map((toDo) => (
-          <li key={toDo.id}>{toDo.text}</li>
+        {toDos.map((toDo) => (
+          <li key={toDo.id} data-category={toDo.category}>
+            {toDo.text}
+          </li>
         ))}
       </ul>
     </div>

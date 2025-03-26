@@ -6,16 +6,16 @@ export enum Categories {
   "DONE" = "DONE",
 }
 
-interface IToDo {
-  id: number;
-  text: string;
-  category: Categories;
-}
-
 export const isDarkAtom = atom({
   key: "isDark",
   default: false,
 });
+
+export interface IToDo {
+  id: number;
+  text: string;
+  category: Categories;
+}
 
 export const toDoState = atom<IToDo[]>({
   key: "toDo",
